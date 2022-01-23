@@ -7,7 +7,7 @@ import { relative } from "path/posix";
 
 const Home: NextPage = () => {
   const myLoader: ImageLoader = ({ src, width, quality }) => {
-    return `http://demo.hadmedical.vn/fileserver/images/file/resize-${width}x0/${src}`;
+    return `https://www.hadmedical.vn/fileserver/images/file/resize-${width}x0/${src}`;
   };
 
   return (
