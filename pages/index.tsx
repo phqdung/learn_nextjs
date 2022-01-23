@@ -3,6 +3,7 @@ import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
 import Link from "next/link";
+import { relative } from "path/posix";
 
 const Home: NextPage = () => {
   return (
@@ -29,16 +30,48 @@ const Home: NextPage = () => {
           </Link>
         </p>
 
-        <p>
-          {/* <img src="/images/profile.jpg" alt="profile" /> */}
+        <div>
+          <Image
+            src="http://demo.hadmedical.vn/fileserver/images/file/fixsize-1600x620/upload/addon/banner/W5e158ab3f05ca/homebanner2.png?v=1.00"
+            alt="profile"
+            width={1600}
+            height={620}
+            quality={100}
+            loading="eager"
+            priority
+          />
+        </div>
+
+        <div>
           <Image
             src="/images/profile.jpg"
             alt="profile"
             width={200}
             height={200}
             quality={100}
+            placeholder="blur"
+            //blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkkAMAACQAIDzCSzIAAAAASUVORK5CYII="
+            blurDataURL="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><rect style='fill:rgb(150,150,150);' width='100%' height='100%' /></svg>"
           />
-        </p>
+        </div>
+
+        <div
+          className="abc"
+          style={{ width: "100%", height: "400px", position: "relative" }}
+        >
+          {/* <img src="/images/profile.jpg" alt="profile" /> */}
+          <Image
+            src="/images/area-designs.jpg"
+            alt="profile"
+            // width={400}
+            // height={400}
+            layout="fill"
+            objectFit="contain"
+            quality={100}
+            placeholder="blur"
+            blurDataURL="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><rect style='fill:rgb(245,245,245);' width='100%' height='100%' /></svg>"
+          />
+        </div>
 
         <div className={styles.grid}>
           <a href="https://nextjs.org/docs" className={styles.card}>
