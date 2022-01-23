@@ -1,13 +1,43 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import Image, { ImageLoader } from "next/image";
+import Image, { ImageLoader, ImageProps } from "next/image";
 import styles from "../styles/Home.module.css";
 import Link from "next/link";
 import { relative } from "path/posix";
+import { useEffect, useState } from "react";
+
+export interface ImageFallbackProps extends ImageProps {
+  fallbackSrc: string;
+}
+
+function ImageFallback({ fallbackSrc, src, alt, ...rest }: ImageFallbackProps) {
+  const [imgSrc, set_imgSrc] = useState(src);
+
+  useEffect(() => {
+    set_imgSrc(src);
+  }, [src]);
+
+  return (
+    <Image
+      {...rest}
+      alt={alt}
+      src={imgSrc}
+      onLoadingComplete={(result) => {
+        if (result.naturalWidth === 0) {
+          // Broken image
+          set_imgSrc(fallbackSrc);
+        }
+      }}
+      onError={() => {
+        set_imgSrc(fallbackSrc);
+      }}
+    />
+  );
+}
 
 const Home: NextPage = () => {
   const myLoader: ImageLoader = ({ src, width, quality }) => {
-    return `https://www.hadmedical.vn/fileserver/images/file/resize-${width}x0/${src}`;
+    return `https://www.hadmedical.vn/fileserver/images/file/resize-${width}x0/${src}.webp`;
   };
 
   return (
@@ -42,10 +72,11 @@ const Home: NextPage = () => {
             display: "inline-block",
           }}
         >
-          <Image
+          <ImageFallback
             loader={myLoader}
             //src="http://demo.hadmedical.vn/fileserver/images/file/fixsize-1600x620/upload/addon/banner/W5e158ab3f05ca/homebanner2.png?v=1.00"
-            src="upload/addon/banner/W5e158ab3f05ca/homebanner2.png"
+            src="upload/addon/banner/W5e158ab3f05ca/homebanner2.png.webp"
+            fallbackSrc="upload/addon/banner/W5e158ab3f05ca/homebanner2.png"
             alt="profile"
             width={1600}
             height={620}
