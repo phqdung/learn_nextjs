@@ -37,7 +37,7 @@ function ImageFallback({ fallbackSrc, src, alt, ...rest }: ImageFallbackProps) {
 
 const Home: NextPage = () => {
   const myLoader: ImageLoader = ({ src, width, quality }) => {
-    return `https://www.hadmedical.vn/fileserver/images/file/resize-${width}x0/${src}.webp`;
+    return `https://www.hadmedical.vn/fileserver/images/file/resize-${width}x0/${src}`;
   };
 
   return (
