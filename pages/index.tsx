@@ -5,6 +5,8 @@ import styles from "../styles/Home.module.css";
 import Link from "next/link";
 import { relative } from "path/posix";
 import { useEffect, useState } from "react";
+import { NextPageWithLayout } from "../models";
+import { MainLayout } from "@/components/layout";
 
 export interface ImageFallbackProps extends ImageProps {
   fallbackSrc: string;
@@ -35,7 +37,7 @@ function ImageFallback({ fallbackSrc, src, alt, ...rest }: ImageFallbackProps) {
   );
 }
 
-const Home: NextPage = () => {
+const Home: NextPageWithLayout = () => {
   const myLoader: ImageLoader = ({ src, width, quality }) => {
     return `https://www.hadmedical.vn/fileserver/images/file/resize-${width}x0/${src}`;
   };
@@ -164,5 +166,7 @@ const Home: NextPage = () => {
     </div>
   );
 };
+
+Home.Layout = MainLayout;
 
 export default Home;
